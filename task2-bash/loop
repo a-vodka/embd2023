@@ -43,12 +43,30 @@ function type(){
     done
 }
 
+#runs run and type in infinite loop
+function typerun(){
+    if [[ $? -eq 0 ]];
+        then
+        while true;
+            do
+            run $1
+            type
+            if [[ $? -eq 0 ]]
+                then
+                break
+            else
+                continue
+            fi
+        done
+    fi
+}
+
 #compile guessnum.cpp, OUT contains code of g++ compiling error if occurs
 OUT=$(${C} ${FILE} 2>&1)
 A="./a.out"
 
-#run function run() with parametr A
-run $A
+#run function typerun() with parametr A
+typerun $A
 
 #message depends on win/lose
 if [[ $WINS -ne 0 ]];

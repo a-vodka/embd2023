@@ -28,6 +28,21 @@ function run(){
     fi
 }
 
+#ask user to choose continue or not
+function type(){
+    read -p "continue?[y/n]: " ans
+    while true;
+    do
+    case $ans in
+        y) return 1;;
+        n) return 0;;
+        *) echo -n "invalid input[y/n]: "
+           read ans
+           continue;;
+    esac
+    done
+}
+
 #compile guessnum.cpp, OUT contains code of g++ compiling error if occurs
 OUT=$(${C} ${FILE} 2>&1)
 A="./a.out"

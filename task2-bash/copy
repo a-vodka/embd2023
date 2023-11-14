@@ -23,3 +23,13 @@ if [[ -e $FILE ]];
     fi
     cp $FILE $BASE
 fi
+
+
+TAR="guessnum.tar.gz"
+#LINES=$(find -name $TAR | wc -l)
+if [ -e $TAR ];
+    then
+    rm $TAR
+fi
+
+tar cfz $TAR $BASE

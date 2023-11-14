@@ -1,0 +1,54 @@
+#!/bin/bash
+#!/bin/sh
+
+#copy guessnum.cpp to tmp folder
+BASE="../task2-bash/tmp/guessnum/"
+
+if [ ! -e $BASE ];
+   then
+   mkdir -p $BASE
+fi
+
+
+FNAME="guessnum.cpp"
+FILE="../task1-simple-program/${FNAME}"
+
+
+if [[ -e $FILE ]];
+    then
+    EX=$(BASE+=$FNAME)
+    if [[ -e $EX ]];
+        then
+        rm $EX
+    fi
+    cp $FILE $BASE
+fi
+
+#create archive
+TAR="guessnum.tar.gz"
+#LINES=$(find -name $TAR | wc -l)
+if [ -e $TAR ];
+    then
+    rm $TAR
+fi
+
+tar cfz $TAR $BASE
+
+#copy archive to release dir
+REL="./release/"
+
+if [ ! -e $REL ];
+    then
+    mkdir -p $REL
+fi
+
+
+if [ -e $TAR ];
+    then
+    EX=$(REL+=$TAR)
+    if [[ -e $EX ]];
+        then
+        rm $EX
+    fi
+    cp $TAR $REL
+fi

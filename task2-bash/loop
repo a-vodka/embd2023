@@ -13,10 +13,28 @@ if [[ ! -e FILE ]];
     ${COPY}
 fi
 
+#wins counter
+WINS=0
+
+#run and increment WINS if win
+function run(){
+    $1
+    if [ $? -eq 0 ];
+        then
+        let WINS+=1
+        echo "Good job!"
+    elif [ $? -eq 1 ];
+        then
+        echo "Better luck next time."
+    fi
+}
+
 #compile guessnum.cpp, OUT contains code of g++ compiling error if occurs
 OUT=$(${C} ${FILE} 2>&1)
 A="./a.out"
 
-$A
+#run function run() with parametr A
+run $A
+
 #delete .out file
 rm a.out

@@ -1,7 +1,6 @@
 #!/bin/bash
 #!/bin/sh
 
-
 #presets
 C="g++"
 FILE="./tmp/guessnum/guessnum.cpp"
@@ -35,6 +34,14 @@ A="./a.out"
 
 #run function run() with parametr A
 run $A
+
+#message depends on win/lose
+if [[ $WINS -ne 0 ]];
+    then
+    echo "You win $WINS times!"
+else
+    echo "You didn't win even once, yikes..."
+fi
 
 #delete .out file
 rm a.out

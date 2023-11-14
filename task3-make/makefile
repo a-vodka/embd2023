@@ -6,6 +6,10 @@ DIR      = .
 OBJ      = guessnum.o randomGen.o
 TARGET   = game
 
+#export path for shared library
+#doesn't work no matter what
+#export LD_LIBRARY_PATH = ${`pwd`}
+
 #default rule
 all: ${TARGET}
 
@@ -17,10 +21,9 @@ guessnum.o: guessnum.cpp randomGen.h
 	${C} ${CFLAGS} -c $<
 
 randomGen.o: randomGen.cpp randomGen.h
-	${C} ${CFLAGS} -c $<
+	${C} ${CFLAGS} -c $< -fPIC
 
-
-#compiles game, implements static library
+#compiles game implements static library
 gamestatic: guessnum.o lib_randomGen.a
 	${C} ${CFLAGS} -o ${TARGET} $< -L${DIR} -l_randomGen
 
@@ -31,6 +34,14 @@ lib_randomGen.a: lib_randomGen.o
 lib_randomGen.o: randomGen.cpp
 	${C} ${CFLAGS} -c $< -o $@
 
+#compile game implements dynamic library
+gamedynamic: guessnum.o lib_randomGen.so
+	${C} ${CFLAGS} -o ${TARGET} $< -L${DIR} lib_randomGen.so
+
+#create dynamic library
+lib_randomGen.so: randomGen.o
+	${C} ${CFLAGS} $< -shared -o $@ #lib_randomGen.so
+
 #clean intermediate files
 clean:
-	rm -f ${TARGET} *.o *.a
+	rm -f ${TARGET} *.o *.a *.so

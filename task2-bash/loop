@@ -12,6 +12,14 @@ if [[ ! -e FILE ]];
     ${COPY}
 fi
 
+#number of runs
+if [[ $# -ne 0 ]];
+    then
+    n=$1
+else
+    n=0
+fi
+
 #wins counter
 WINS=0
 
@@ -61,12 +69,28 @@ function typerun(){
     fi
 }
 
+#runs game n times
+function autorun(){
+
+    iter=0
+    while [[ $iter -lt $n ]];
+        do
+        run $1
+        let iter+=1
+    done
+}
+
 #compile guessnum.cpp, OUT contains code of g++ compiling error if occurs
 OUT=$(${C} ${FILE} 2>&1)
 A="./a.out"
 
-#run function typerun() with parametr A
-typerun $A
+#runs and infinity loop if n = 0 or n times otherwise
+if [[ $n -eq 0 ]];
+    then
+    typerun $A
+else
+    autorun $A
+fi
 
 #message depends on win/lose
 if [[ $WINS -ne 0 ]];

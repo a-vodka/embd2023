@@ -1,0 +1,25 @@
+#!/bin/bash
+#!/bin/sh
+
+
+BASE="../task2-bash/tmp/guessnum/"
+
+if [ ! -e $BASE ];
+   then
+   mkdir -p $BASE
+fi
+
+
+FNAME="guessnum.cpp"
+FILE="../task1-simple-program/${FNAME}"
+
+
+if [[ -e $FILE ]];
+    then
+    EX=$(BASE+=$FNAME)
+    if [[ -e $EX ]];
+        then
+        rm $EX
+    fi
+    cp $FILE $BASE
+fi

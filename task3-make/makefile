@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean debug-check
 
 #presets
 C        = g++
@@ -50,6 +50,13 @@ lib_randomGen.so: randomGen.o
 
 cppcheck: ${CHECKOBJ}
 	cppcheck ${CHECKOPT} ${CHECKOBJ}
+
+#impletens debug information during compilation
+debug: debug-check ${TARGET}
+
+#add -g flag to CFLAGS
+debug-check:
+	$(eval CFLAGS += -g)
 
 #clean intermediate files
 clean:

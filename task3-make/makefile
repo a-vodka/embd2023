@@ -1,4 +1,4 @@
-.PHONY: clean debug-check
+.PHONY: clean debug-check warning-check
 
 #presets
 C        = g++
@@ -57,6 +57,13 @@ debug: debug-check ${TARGET}
 #add -g flag to CFLAGS
 debug-check:
 	$(eval CFLAGS += -g)
+
+#implements warnings during compilation
+warning: warning-check ${TARGET}
+
+#add warning flags (-Wall -Wextra) to CFLAGS
+warning-check:
+	${eval CFLAGS += -Wall -Wextra}
 
 #clean intermediate files
 clean:

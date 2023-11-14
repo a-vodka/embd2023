@@ -6,6 +6,20 @@ C="g++"
 FILE="./tmp/guessnum/guessnum.cpp"
 COPY="./copy"
 
+#color text prefixes
+#red
+red="\033[31m"
+
+#green
+green="\033[32m"
+
+#yellow
+yellow="\033[33m"
+
+#colortext postfix
+NC="\033[00m"
+
+
 #to copy file if not exists
 if [[ ! -e FILE ]];
     then
@@ -29,10 +43,10 @@ function run(){
     if [ $? -eq 0 ];
         then
         let WINS+=1
-        echo "Good job!"
+        echo -e "$green"Good job!"$NC"
     elif [ $? -eq 1 ];
         then
-        echo "Better luck next time."
+        echo -e "$red"Better luck next time."$NC"
     fi
 }
 
@@ -44,7 +58,7 @@ function type(){
     case $ans in
         y) return 1;;
         n) return 0;;
-        *) echo -n "invalid input[y/n]: "
+        *) echo -n -e "$yellow"invalid input[y/n]: "$NC"
            read ans
            continue;;
     esac

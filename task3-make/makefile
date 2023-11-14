@@ -19,6 +19,18 @@ guessnum.o: guessnum.cpp randomGen.h
 randomGen.o: randomGen.cpp randomGen.h
 	${C} ${CFLAGS} -c $<
 
+
+#compiles game, implements static library
+gamestatic: guessnum.o lib_randomGen.a
+	${C} ${CFLAGS} -o ${TARGET} $< -L${DIR} -l_randomGen
+
+#create static library
+lib_randomGen.a: lib_randomGen.o
+	ar rcs $@ $<
+
+lib_randomGen.o: randomGen.cpp
+	${C} ${CFLAGS} -c $< -o $@
+
 #clean intermediate files
 clean:
-	rm -f ${TARGET} *.o
+	rm -f ${TARGET} *.o *.a

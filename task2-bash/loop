@@ -1,0 +1,22 @@
+#!/bin/bash
+#!/bin/sh
+
+
+#presets
+C="g++"
+FILE="./tmp/guessnum/guessnum.cpp"
+COPY="./copy"
+
+#to copy file if not exists
+if [[ ! -e FILE ]];
+    then
+    ${COPY}
+fi
+
+#compile guessnum.cpp, OUT contains code of g++ compiling error if occurs
+OUT=$(${C} ${FILE} 2>&1)
+A="./a.out"
+
+$A
+#delete .out file
+rm a.out

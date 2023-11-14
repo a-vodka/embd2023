@@ -1,10 +1,16 @@
 .PHONY: clean
+
 #presets
 C        = g++
 CFLAGS   =
 DIR      = .
 OBJ      = guessnum.o randomGen.o
 TARGET   = game
+
+#cppcheck
+CHECKOBJ = guessnum.cpp randomGen.cpp randomGen.h
+CHECKOUT = check.txt
+CHECKOPT = --enable=all --output-file=${CHECKOUT}
 
 #export path for shared library
 #doesn't work no matter what
@@ -42,6 +48,9 @@ gamedynamic: guessnum.o lib_randomGen.so
 lib_randomGen.so: randomGen.o
 	${C} ${CFLAGS} $< -shared -o $@ #lib_randomGen.so
 
+cppcheck: ${CHECKOBJ}
+	cppcheck ${CHECKOPT} ${CHECKOBJ}
+
 #clean intermediate files
 clean:
-	rm -f ${TARGET} *.o *.a *.so
+	rm -f ${TARGET} *.o *.a *.so *.txt

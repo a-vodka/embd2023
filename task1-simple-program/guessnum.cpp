@@ -1,19 +1,27 @@
 #include <iostream>     // printf, cin
 #include <time.h>       // time
 
+
 using namespace std;
 
 const int MAX = 30000;	//cin buffer clean limit
 
+int randomGen();
+
 int main(){
 
-	printf("Guess number game. Try to guess my number in range [0;9]\n");
-	srand(time(0));		//plant random seed
+    printf("Guess number game. Try to guess my number in range [0;9]\n");
+    srand(time(0)); 	//plant random seed
+
+	return randomGen();
+}
+
+int randomGen(){
 
 	int user,					//var for user input
         computer = rand() % 9;	//random number
 
-	while(1){
+    while(1){
         try {
             printf("input >> ");	//prompt
             cin >> user;

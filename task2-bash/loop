@@ -1,0 +1,118 @@
+#!/bin/bash
+#!/bin/sh
+
+#presets
+C="g++"
+FILE="./tmp/guessnum/guessnum.cpp"
+COPY="./copy"
+
+#color text prefixes
+#red
+red="\033[31m"
+
+#green
+green="\033[32m"
+
+#yellow
+yellow="\033[33m"
+
+#colortext postfix
+NC="\033[00m"
+
+
+#to copy file if not exists
+if [[ ! -e FILE ]];
+    then
+    ${COPY}
+fi
+
+#number of runs
+if [[ $# -ne 0 ]];
+    then
+    n=$1
+else
+    n=0
+fi
+
+#wins counter
+WINS=0
+
+#run and increment WINS if win
+function run(){
+    $1
+    if [ $? -eq 0 ];
+        then
+        let WINS+=1
+        echo -e "$green"Good job!"$NC"
+    elif [ $? -eq 1 ];
+        then
+        echo -e "$red"Better luck next time."$NC"
+    fi
+}
+
+#ask user to choose continue or not
+function type(){
+    read -p "continue?[y/n]: " ans
+    while true;
+    do
+    case $ans in
+        y) return 1;;
+        n) return 0;;
+        *) echo -n -e "$yellow"invalid input[y/n]: "$NC"
+           read ans
+           continue;;
+    esac
+    done
+}
+
+#runs run and type in infinite loop
+function typerun(){
+    if [[ $? -eq 0 ]];
+        then
+        while true;
+            do
+            run $1
+            type
+            if [[ $? -eq 0 ]]
+                then
+                break
+            else
+                continue
+            fi
+        done
+    fi
+}
+
+#runs game n times
+function autorun(){
+
+    iter=0
+    while [[ $iter -lt $n ]];
+        do
+        run $1
+        let iter+=1
+    done
+}
+
+#compile guessnum.cpp, OUT contains code of g++ compiling error if occurs
+OUT=$(${C} ${FILE} 2>&1)
+A="./a.out"
+
+#runs and infinity loop if n = 0 or n times otherwise
+if [[ $n -eq 0 ]];
+    then
+    typerun $A
+else
+    autorun $A
+fi
+
+#message depends on win/lose
+if [[ $WINS -ne 0 ]];
+    then
+    echo "You win $WINS times!"
+else
+    echo "You didn't win even once, yikes..."
+fi
+
+#delete .out file
+rm a.out

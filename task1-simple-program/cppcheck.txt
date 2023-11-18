@@ -1,0 +1,11 @@
+[1mguessnum.cpp:31:28: [31mstyle:[39m Expression is always true because 'else if' condition is opposite to previous condition at line 30. [multiCondition][0m
+            else if ( user == computer )             throw 4; //win condition
+                           ^
+[1mguessnum.cpp:30:28: [2mnote:[0m first condition
+            else if ( user != computer )             throw 3; //lose condition
+                           ^
+[1mguessnum.cpp:31:28: [2mnote:[0m else if condition is opposite to first condition
+            else if ( user == computer )             throw 4; //win condition
+                           ^
+[1mnofile:0:0: [31minformation:[39m Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem][0m
+

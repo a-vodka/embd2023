@@ -19,7 +19,7 @@ int main(){
 int randomGen(){
 
 	int user,					//var for user input
-        computer = rand() % 9;	//random number
+        computer = rand() % 10;	//random number
 
     while(1){
         try {

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include <time.h>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ int Check (int comp_value, int value)
 
 int main()
 {
+    srand(time(NULL));
     int comp_value = rand() % 10;
     int value;
     cout << "Введіть число: ";

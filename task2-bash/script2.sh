@@ -2,10 +2,12 @@
 
 wins=0
 
-output="../task1-simple-program/a.out"
+cpp_file="../task1-simple-program/task1.cpp"
 
 while true;
     do
+	g++ "$cpp_file" -o "guessanumber"
+	output="./guessanumber"
 	$output
 	if [ $? -eq 0 ]
 	    then

@@ -8,3 +8,4 @@ main.o: main.cpp
 
 check.o: check.h check.cpp
 	$(C) -c check.cpp
+
